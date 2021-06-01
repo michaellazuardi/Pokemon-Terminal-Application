@@ -1,5 +1,12 @@
 # Pokemon-Terminal-Application
-
+```bash
+This Pokemon Terminal Application will allow you to find any Pokemon data. In order to do so, you will havee to input the Pokemon's name or ID and these are the things that will be shown:
+1. Pokemon ID
+2. Pokemon Name
+3. Pokemon Type(s)
+4. Pokemon Encounter Location(s) and method(s) in Kanto only
+5. Pokemon stats (speed, def, etc etc)
+```
 ## Dependency
 This API requires open source projects to work;
 - chalk
