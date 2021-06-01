@@ -1,0 +1,27 @@
+{
+  "name": "pokeapi-terminalapp",
+  "version": "1.0.0",
+  "description": "A terminal application to retrieve pokemon data",
+  "main": "src/index.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "axios": "^0.19.2",
+    "chalk": "^2.4.2",
+    "each-async": "^2.0.0",
+    "indent-string": "^5.0.0",
+    "lowdb": "^1.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "mocha --exit"
+  },
+  "keywords": [
+    "pokemon",
+    "pokeapi",
+    "pokedex"
+  ],
+  "author": "Michael Lazuardi",
+  "license": "ISC"
+}

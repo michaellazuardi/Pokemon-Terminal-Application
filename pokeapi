@@ -1,0 +1,81 @@
+#!/usr/bin/env node
+
+const chalk = require('chalk');
+const readline = require('readline');
+
+const rl = readline.createInterface({input: process.stdin, output: process.stdout});
+
+//this is the part where the user can enter the pokemon name or pokemon ID
+let inputPokemon = () => {
+  return new Promise((resolve, reject) => {
+    let q = chalk.magenta(`Enter Pokemon Name or Pokemon ID
+              OR
+Enter 'quit' to exit the program \n>> `)
+    rl.question(q, (answer) => {
+      resolve(answer)
+    })
+  })
+}
+
+
+let main = async () => {
+  var pokemonAPI = require("./src");
+  var P = new pokemonAPI();
+    
+  while (true) {
+    ans = await inputPokemon()
+
+//interface when user wants to quit the terminal
+    if (ans === 'quit') {
+      console.log(chalk.red(`\nExiting terminal, thank you!\n`))
+      break;
+    }
+    console.log(chalk.magenta(`Fetching Pokemon Data: ${ans}`))
+
+
+    data = await P.getPokemonByNameId(ans)
+      .then(response => response)
+      .catch(function(error) {
+        console.log("Error found: ", error);
+        return null;
+      });
+    
+    //interface after user has searched Pokemon by name or ID
+    if (data) {
+      console.log('Pokemon ID:', chalk.red(data.id))
+      console.log('Pokemon Name:', chalk.red(data.name))
+
+      //this shows the pokemon type
+      if (data.types) {
+        console.log(`Pokemon Type(s):`, chalk.red(data.types.map(t => (t.type)).join(", ")))
+      }
+
+
+      //this shows the pokemon encounters location
+       if (data.encounters) {
+        const encounters = data.encounters
+        if (encounters.length) {
+          console.log('Pokemon Encounter Location(s):')
+          encounters.forEach((enc) => {
+            console.log(` -`, chalk.red(`${enc.location_area}: ${enc.methods}`))
+          });
+        } else {
+          console.log('Pokemon Encounter Location(s): -')
+        }
+      }
+
+      //this shows the pokemon stats 
+      if (data.stats) {
+        console.log('Pokemon Stats:')
+        const stats = data.stats
+        stats.forEach((s) => {
+          console.log(` -`, chalk.red(`${s.stats_name}: ${s.result}`))
+        });
+      }
+    }
+  } 
+  rl.close()
+  process.exit(0);
+}
+
+main()
